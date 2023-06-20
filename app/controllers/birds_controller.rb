@@ -15,5 +15,17 @@ class BirdsController < ApplicationController
       render json: { error: "Bird not found" }, status: :not_found
     end
   end
+  wrap_parameters format: []
+    
+  def create   
+    bird = Bird.create(production_params)
+    render json: bird, status: :created
+  end
+ 
+  private
+  
+  def production_params        
+    params.permit(:name, :species)
+  end
 
 end
